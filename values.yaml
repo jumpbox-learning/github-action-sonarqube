@@ -276,7 +276,10 @@ resources:
     cpu: 400m
     memory: 2048Mi
 persistence:
-  enabled: false
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 20Gi
+  storageClass: jelastic-dynamic-volume
   ## Set annotations on pvc
   annotations: {}
 
@@ -364,7 +367,7 @@ postgresql:
     enabled: true
     accessMode: ReadWriteOnce
     size: 20Gi
-    storageClass: 
+    storageClass: jelastic-dynamic-volume
   securityContext:
     # For standard Kubernetes deployment, set enabled=true
     # If using OpenShift, enabled=false for restricted SCC and enabled=true for anyuid/nonroot SCC
@@ -376,13 +379,13 @@ postgresql:
   volumePermissions:
     # For standard Kubernetes deployment, set enabled=false
     # For OpenShift, set enabled=true and ensure to set volumepermissions.securitycontext.runAsUser below.
-    enabled: false
+    enabled: true
     # if using restricted SCC set runAsUser: "auto" and if running under anyuid/nonroot SCC - runAsUser needs to match runAsUser above
     securityContext:
       runAsUser: 0
   shmVolume:
     chmod:
-      enabled: false
+      enabled: true
   serviceAccount:
     ## If enabled = true, and name is not set, postgreSQL will create a serviceAccount
     enabled: true
